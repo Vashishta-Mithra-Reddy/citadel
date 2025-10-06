@@ -22,14 +22,14 @@ export default function DashboardClient() {
         </p>
       </section>
 
-      {!("PublicKeyCredential" in window) && (
+      {/* {!("PublicKeyCredential" in window) && ( */}
         <section className="p-6 py-12 rounded-xl border-2 border-dashed border-foreground/20">
           <h2 className="text-3xl font-semibold mb-8 text-center">
             Passkey Management
           </h2>
           <PasskeySetup />
         </section>
-      )}
+      {/* )} */}
     </div>
   );
 }

@@ -145,8 +145,8 @@ export default function SignInClient() {
               )}
             </button>
           </div>
-          {"PublicKeyCredential" in window && (
-            <>
+          {/* {"PublicKeyCredential" in window && (
+            <> */}
               <div className="relative flex py-5 items-center w-full">
                 <div className="flex-grow border-t border-gray-400"></div>
                 <span className="flex-shrink mx-4 text-gray-400">OR</span>
@@ -155,8 +155,8 @@ export default function SignInClient() {
               <div className="flex items-center justify-center w-full h-full">
                 <PasskeyLoginButton />
               </div>
-            </>
-          )}
+            {/* </>
+          )} */}
           <div className="text-center mt-6">
             <Link href="/sign-up">
               <p className="text-md text-gray-500 hover:underline">

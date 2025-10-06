@@ -65,7 +65,7 @@ export default function PasskeySetup() {
   };
 
   return (
-    <div>
+    <div className="flex-col-center">
       <h3 className="text-lg font-semibold">Add a Passkey</h3>
       <p className="text-sm text-foreground/60 mb-4">
         Enable signing in to your account with this device's biometrics
