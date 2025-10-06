@@ -5,11 +5,5 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <EncryptionProvider>
-      <div className="flex-center">
-      {children}
-      </div>
-    </EncryptionProvider>
-  );
+  return <EncryptionProvider>{children}</EncryptionProvider>;
 }

@@ -1,25 +1,26 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useEncryption } from '@/app/providers/EncryptionProvider';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { useEncryption } from "@/app/providers/EncryptionProvider";
+import { toast } from "sonner";
 
 export default function UnlockVaultForm() {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { unlockVault } = useEncryption();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       await unlockVault(password);
-      toast.success('Vault unlocked!');
+      toast.success("Vault unlocked!");
     } catch (err: any) {
-      const errorMessage = 'Failed to unlock vault. Please check your password.';
+      const errorMessage =
+        "Failed to unlock vault. Please check your password.";
       setError(errorMessage);
       toast.error(errorMessage);
       console.error(err);
@@ -33,7 +34,10 @@ export default function UnlockVaultForm() {
       <h2 className="text-3xl font-semibold mb-8 text-center">
         Unlock Your Secure Vault
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4 flex-col-center w-full max-w-sm">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 flex-col-center w-full max-w-sm"
+      >
         <div className="flex-col-center w-full">
           <label htmlFor="masterPassword" className="text-lg font-medium">
             Master Password
@@ -57,7 +61,7 @@ export default function UnlockVaultForm() {
           disabled={isLoading || !password}
           className="px-5 py-3 mt-2 bg-foreground text-background rounded-md font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
-          {isLoading ? 'Unlocking...' : 'Unlock'}
+          {isLoading ? "Unlocking..." : "Unlock"}
         </button>
       </form>
     </section>

@@ -1,19 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { signIn } from "@/actions/auth-actions";
 import { useAuth } from "@/app/providers/AuthProvider";
+import PasskeyLoginButton from "@/components/webauthn/PassKeyLogin";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignInClient() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
   const { refreshSession } = useAuth();
+
+  // 👇 3. Add this useEffect to preload the passkey autofill
+  useEffect(() => {
+    // Check if the browser supports Conditional UI for passkeys
+    if ("PublicKeyCredential" in window) {
+      // This call silently checks for available passkeys and enables the
+      // browser's autofill prompt when the user interacts with the form inputs.
+      authClient.signIn.passkey({
+        autoFill: true,
+        fetchOptions: {
+          onSuccess() {
+            window.location.href = "/dashboard";
+          },
+          onError(context) {
+            // This error is expected if no passkeys are found for the site.
+            // We can log it for debugging but don't need to show a toast.
+            console.error("Conditional UI Passkey check:", context.error);
+          },
+        },
+      });
+    }
+  }, []);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,6 +85,7 @@ export default function SignInClient() {
             <input
               type="email"
               id="email"
+              autoComplete="username webauthn"
               className="w-full px-4 py-2 text-lg bg-card border-2 border-foreground/20 focus:border-foreground/50 rounded-xl transition-all placeholder:text-muted-foreground duration-500 focus:outline-none"
               placeholder="m@example.com"
               value={email}
@@ -80,7 +104,7 @@ export default function SignInClient() {
               type="password"
               id="password"
               placeholder="********"
-              autoComplete="password"
+              autoComplete="current-password webauthn"
               className="w-full px-4 py-2 text-lg bg-card border-2 border-foreground/20 focus:border-foreground/50 rounded-xl transition-all placeholder:text-muted-foreground duration-500 focus:outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -121,6 +145,18 @@ export default function SignInClient() {
               )}
             </button>
           </div>
+          {"PublicKeyCredential" in window && (
+            <>
+              <div className="relative flex py-5 items-center w-full">
+                <div className="flex-grow border-t border-gray-400"></div>
+                <span className="flex-shrink mx-4 text-gray-400">OR</span>
+                <div className="flex-grow border-t border-gray-400"></div>
+              </div>
+              <div className="flex items-center justify-center w-full h-full">
+                <PasskeyLoginButton />
+              </div>
+            </>
+          )}
           <div className="text-center mt-6">
             <Link href="/sign-up">
               <p className="text-md text-gray-500 hover:underline">

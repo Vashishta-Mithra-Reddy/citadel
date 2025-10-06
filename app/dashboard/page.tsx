@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { auth } from "@/utils/auth";
 import { redirect } from "next/navigation";
-import DashboardClient from "./DashboardClient"; 
+import DashboardClient from "./DashboardClient";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
@@ -17,10 +17,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main className="wrapperx flex flex-col items-center justify-center text-foreground/90">
-      <div className="w-full space-y-12 font-outfit">
+    <main className="wrapperx flex-col-center text-foreground/90 w-full space-y-12 font-outfit">
         <DashboardClient />
-      </div>
     </main>
   );
 }

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { deriveKey, decryptData } from '@/lib/crypto';
-import { getVaultVerificationData } from '@/actions/vault';
+import { createContext, useContext, useState, ReactNode } from "react";
+import { deriveKey, decryptData } from "@/lib/crypto";
+import { getVaultVerificationData } from "@/actions/vault";
 
 const VERIFICATION_PLAINTEXT = "VAULT_VERIFIED";
 
@@ -12,7 +12,9 @@ interface EncryptionContextType {
   unlockVault: (masterPassword: string) => Promise<void>;
 }
 
-const EncryptionContext = createContext<EncryptionContextType | undefined>(undefined);
+const EncryptionContext = createContext<EncryptionContextType | undefined>(
+  undefined,
+);
 
 export function EncryptionProvider({ children }: { children: ReactNode }) {
   const [encryptionKey, setEncryptionKey] = useState<CryptoKey | null>(null);
@@ -21,7 +23,7 @@ export function EncryptionProvider({ children }: { children: ReactNode }) {
   const unlockVault = async (masterPassword: string) => {
     const data = await getVaultVerificationData();
     if (!data) {
-      throw new Error('Could not retrieve vault data. Please try again.');
+      throw new Error("Could not retrieve vault data. Please try again.");
     }
     const { salt, verificationCipher, verificationIv } = data;
 
@@ -29,7 +31,11 @@ export function EncryptionProvider({ children }: { children: ReactNode }) {
 
     let decryptedText;
     try {
-      decryptedText = await decryptData(verificationCipher, verificationIv, key);
+      decryptedText = await decryptData(
+        verificationCipher,
+        verificationIv,
+        key,
+      );
     } catch (error) {
       throw new Error("Invalid Master Password.");
     }
@@ -42,7 +48,9 @@ export function EncryptionProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <EncryptionContext.Provider value={{ encryptionKey, isLocked, unlockVault }}>
+    <EncryptionContext.Provider
+      value={{ encryptionKey, isLocked, unlockVault }}
+    >
       {children}
     </EncryptionContext.Provider>
   );
@@ -51,7 +59,7 @@ export function EncryptionProvider({ children }: { children: ReactNode }) {
 export function useEncryption() {
   const context = useContext(EncryptionContext);
   if (context === undefined) {
-    throw new Error('useEncryption must be used within an EncryptionProvider');
+    throw new Error("useEncryption must be used within an EncryptionProvider");
   }
   return context;
 }

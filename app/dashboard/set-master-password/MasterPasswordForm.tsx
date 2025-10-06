@@ -26,7 +26,9 @@ export default function MasterPasswordForm() {
       return;
     }
     if (password.length < 8) {
-      setError("For security, the password must be at least 8 characters long.");
+      setError(
+        "For security, the password must be at least 8 characters long.",
+      );
       setIsLoading(false);
       return;
     }
@@ -48,8 +50,7 @@ export default function MasterPasswordForm() {
       });
 
       toast.success("Vault secured successfully!");
-      router.push("/dashboard")
-
+      router.push("/dashboard");
     } catch (err: any) {
       setError(err.message);
       toast.error(err.message);
@@ -95,7 +96,7 @@ export default function MasterPasswordForm() {
 
       <button
         type="submit"
-        disabled={isLoading || !password || !confirmPassword} 
+        disabled={isLoading || !password || !confirmPassword}
         className="px-5 py-3 mt-2 bg-foreground text-background rounded-md font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         {isLoading ? "Securing Vault..." : "Set Master Password"}

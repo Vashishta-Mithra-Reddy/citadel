@@ -2,7 +2,7 @@
 
 // Helper to convert an ArrayBuffer to a Base64 string for storing in the DB
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
-  let binary = '';
+  let binary = "";
   const bytes = new Uint8Array(buffer);
   for (let i = 0; i < bytes.byteLength; i++) {
     binary += String.fromCharCode(bytes[i]);
@@ -27,30 +27,33 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
  * @param salt A unique, per-user salt.
  * @returns A Promise that resolves to a CryptoKey.
  */
-export async function deriveKey(password: string, salt: string): Promise<CryptoKey> {
+export async function deriveKey(
+  password: string,
+  salt: string,
+): Promise<CryptoKey> {
   const encoder = new TextEncoder();
   const passwordBuffer = encoder.encode(password);
   const saltBuffer = base64ToArrayBuffer(salt);
 
   const keyMaterial = await crypto.subtle.importKey(
-    'raw',
+    "raw",
     passwordBuffer,
-    { name: 'PBKDF2' },
+    { name: "PBKDF2" },
     false,
-    ['deriveKey']
+    ["deriveKey"],
   );
 
   return crypto.subtle.deriveKey(
     {
-      name: 'PBKDF2',
+      name: "PBKDF2",
       salt: saltBuffer,
       iterations: 100000, // Standard number of iterations
-      hash: 'SHA-256',
+      hash: "SHA-256",
     },
     keyMaterial,
-    { name: 'AES-GCM', length: 256 },
+    { name: "AES-GCM", length: 256 },
     true,
-    ['encrypt', 'decrypt']
+    ["encrypt", "decrypt"],
   );
 }
 
@@ -62,7 +65,7 @@ export async function deriveKey(password: string, salt: string): Promise<CryptoK
  */
 export async function encryptData(
   data: string,
-  key: CryptoKey
+  key: CryptoKey,
 ): Promise<{ ciphertext: string; iv: string }> {
   const encoder = new TextEncoder();
   const encodedData = encoder.encode(data);
@@ -70,11 +73,11 @@ export async function encryptData(
 
   const ciphertext = await crypto.subtle.encrypt(
     {
-      name: 'AES-GCM',
+      name: "AES-GCM",
       iv: iv,
     },
     key,
-    encodedData
+    encodedData,
   );
 
   return {
@@ -93,18 +96,18 @@ export async function encryptData(
 export async function decryptData(
   ciphertext: string,
   iv: string,
-  key: CryptoKey
+  key: CryptoKey,
 ): Promise<string> {
   const ciphertextBuffer = base64ToArrayBuffer(ciphertext);
   const ivBuffer = base64ToArrayBuffer(iv);
 
   const decrypted = await crypto.subtle.decrypt(
     {
-      name: 'AES-GCM',
+      name: "AES-GCM",
       iv: ivBuffer,
     },
     key,
-    ciphertextBuffer
+    ciphertextBuffer,
   );
 
   const decoder = new TextDecoder();

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.55",
+    "@simplewebauthn/browser": "^13.2.2",
+    "@simplewebauthn/server": "^13.2.2",
     "@vercel/analytics": "^1.5.0",
     "better-auth": "^1.3.26",
     "check-password-strength": "^3.0.0",
