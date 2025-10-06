@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { useAuth } from "@/app/providers/AuthProvider";
 
 /**
  * A helper function to generate a descriptive name from the browser's user agent.
@@ -41,6 +42,7 @@ function getDeviceName(): string {
 
 export default function PasskeySetup() {
   const [isLoading, setIsLoading] = useState(false);
+  const { session } = useAuth();
 
   const handleRegisterPasskey = async () => {
     setIsLoading(true);
@@ -48,7 +50,7 @@ export default function PasskeySetup() {
       const generatedName = getDeviceName();
 
       const result = await authClient.passkey.addPasskey({
-        name: "Citadel | "+generatedName,
+        name: session?.user.email+" "+generatedName,
       });
 
       if (result?.error) {
