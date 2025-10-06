@@ -68,7 +68,7 @@ export default function PasskeySetup() {
 
   return (
     <div className="flex-col-center">
-      <h3 className="text-lg font-semibold">Add a Passkey</h3>
+      <h3 className="text-2xl font-semibold mb-2">Add a Passkey</h3>
       <p className="text-sm text-foreground/60 mb-4">
         Enable signing in to your account with this device's biometrics
         (Fingerprint, Face ID, etc.).
@@ -76,7 +76,7 @@ export default function PasskeySetup() {
       <button
         onClick={handleRegisterPasskey}
         disabled={isLoading}
-        className="px-4 py-2 bg-foreground text-background rounded-md disabled:opacity-50"
+        className="px-4 py-2 bg-foreground text-background rounded-md disabled:opacity-50 cursor-pointer active:scale-95 transition-all duration-500"
       >
         {isLoading ? "Registering Device..." : "Add Passkey for This Device"}
       </button>

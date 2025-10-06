@@ -18,7 +18,9 @@ interface PasswordOptions {
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("");
   const [copied, setCopied] = useState(false);
-  const [strength, setStrength] = useState<{ value: string }>({ value: "Too weak" });
+  const [strength, setStrength] = useState<{ value: string }>({
+    value: "Too weak",
+  });
 
   const [options, setOptions] = useState<PasswordOptions>({
     length: 16,

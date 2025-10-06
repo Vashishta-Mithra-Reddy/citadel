@@ -20,6 +20,7 @@ export default async function PasswordGeneratorPage() {
             title="Access your secure vault"
             href="/dashboard"
             tag="Dashboard"
+            width={4 / 6}
             delay={0.6}
           />
         ) : (
@@ -27,6 +28,7 @@ export default async function PasswordGeneratorPage() {
             title="Need to save your passwords?"
             href="/sign-in"
             tag="Sign In"
+            width={4 / 6}
             delay={0.6}
           />
         )}
