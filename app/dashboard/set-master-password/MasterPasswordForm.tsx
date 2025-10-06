@@ -95,7 +95,7 @@ export default function MasterPasswordForm() {
 
       <button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !password || !confirmPassword} 
         className="px-5 py-3 mt-2 bg-foreground text-background rounded-md font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         {isLoading ? "Securing Vault..." : "Set Master Password"}

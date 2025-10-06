@@ -7,7 +7,9 @@ export default function DashboardLayout({
 }) {
   return (
     <EncryptionProvider>
+      <div className="flex-center">
       {children}
+      </div>
     </EncryptionProvider>
   );
 }

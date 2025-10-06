@@ -29,7 +29,7 @@ export default function UnlockVaultForm() {
   };
 
   return (
-    <section className="p-6 py-12 rounded-xl border-2 border-dashed border-foreground/20 flex-col-center">
+    <section className="px-20 py-12 rounded-xl bg-background flex-col-center w-fit">
       <h2 className="text-3xl font-semibold mb-8 text-center">
         Unlock Your Secure Vault
       </h2>
@@ -54,7 +54,7 @@ export default function UnlockVaultForm() {
 
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !password}
           className="px-5 py-3 mt-2 bg-foreground text-background rounded-md font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           {isLoading ? 'Unlocking...' : 'Unlock'}
