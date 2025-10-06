@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Copy, Check, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { passwordStrength } from "check-password-strength";
+import { motion, Variants } from "framer-motion";
 
 interface PasswordOptions {
   length: number;
@@ -17,9 +18,7 @@ interface PasswordOptions {
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("");
   const [copied, setCopied] = useState(false);
-  const [strength, setStrength] = useState<{
-    value: string;
-  }>({ value: "Too weak" });
+  const [strength, setStrength] = useState<{ value: string }>({ value: "Too weak" });
 
   const [options, setOptions] = useState<PasswordOptions>({
     length: 16,
@@ -79,7 +78,6 @@ export default function PasswordGenerator() {
 
   const evaluateStrength = (pwd: string) => {
     const result = passwordStrength(pwd);
-    // result is something like: { id: "Weak", value: X, warnings: [...], suggestions: [...] }
     setStrength({ value: result.value });
   };
 
@@ -116,10 +114,6 @@ export default function PasswordGenerator() {
   };
 
   const strengthWidth = () => {
-    // value is numeric, map it to percentage
-    // The library uses value in some range (0–4 or 0–100). We’ll normalize.
-    // From docs: value is small integer levels. We can do (value / maxValue) * 100.
-    // But we can also just map id to fixed widths.
     switch (strength.value) {
       case "Strong":
         return "100%";
@@ -133,13 +127,34 @@ export default function PasswordGenerator() {
     }
   };
 
+  const fadeUp = (delay: number): Variants => ({
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }, // smooth cubic bezier easing
+    },
+  });
+
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full md:w-4/6 mb-0">
+      <motion.div
+        className="w-full md:w-4/6 mb-0"
+        variants={fadeUp(0.1)}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="flex items-center gap-2 mb-2">
-          <div className="flex-1 bg-foreground/5 p-3 rounded-lg font-mono text-lg overflow-x-auto line-clamp-1">
+          <motion.div
+            key={password}
+            initial={{ scale: 0.99 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 100, damping: 10 }}
+            className="flex-1 bg-foreground/5 p-3 rounded-lg font-mono text-lg overflow-x-auto line-clamp-1"
+          >
             {password}
-          </div>
+          </motion.div>
+
           <button
             onClick={copyToClipboard}
             className="p-3 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-all duration-300 cursor-pointer active:scale-95"
@@ -157,7 +172,12 @@ export default function PasswordGenerator() {
         </div>
 
         {/* Strength bar */}
-        <div className="mt-2">
+        <motion.div
+          className="mt-2"
+          variants={fadeUp(0.2)}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="w-full h-2 rounded-full bg-foreground/10 overflow-hidden">
             <div
               className={`h-full transition-all rounded-full duration-500 ${getColorForStrength()}`}
@@ -180,9 +200,14 @@ export default function PasswordGenerator() {
               {strength.value}
             </span>
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-4 mt-4">
+        <motion.div
+          className="space-y-4 mt-4"
+          variants={fadeUp(0.3)}
+          initial="hidden"
+          animate="visible"
+        >
           <div>
             <label className="flex justify-between mb-2">
               <span>Length: {options.length}</span>
@@ -198,10 +223,15 @@ export default function PasswordGenerator() {
               className="w-full"
             />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full md:w-4/6 my-4">
+      <motion.div
+        className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full md:w-4/6 my-4"
+        variants={fadeUp(0.4)}
+        initial="hidden"
+        animate="visible"
+      >
         <button
           onClick={() =>
             handleOptionChange("includeLowercase", !options.includeLowercase)
@@ -283,7 +313,7 @@ export default function PasswordGenerator() {
             placeholder="Enter to Exclude: e.g. !@#$%"
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

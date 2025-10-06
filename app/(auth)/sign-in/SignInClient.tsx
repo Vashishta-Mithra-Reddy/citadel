@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -147,15 +147,15 @@ export default function SignInClient() {
           </div>
           {/* {"PublicKeyCredential" in window && (
             <> */}
-              <div className="relative flex py-5 items-center w-full">
-                <div className="flex-grow border-t border-gray-400"></div>
-                <span className="flex-shrink mx-4 text-gray-400">OR</span>
-                <div className="flex-grow border-t border-gray-400"></div>
-              </div>
-              <div className="flex items-center justify-center w-full h-full">
-                <PasskeyLoginButton />
-              </div>
-            {/* </>
+          <div className="relative flex py-5 items-center w-full">
+            <div className="flex-grow border-t border-gray-400"></div>
+            <span className="flex-shrink mx-4 text-gray-400">OR</span>
+            <div className="flex-grow border-t border-gray-400"></div>
+          </div>
+          <div className="flex items-center justify-center w-full h-full">
+            <PasskeyLoginButton />
+          </div>
+          {/* </>
           )} */}
           <div className="text-center mt-6">
             <Link href="/sign-up">

@@ -50,7 +50,7 @@ export default function PasskeySetup() {
       const generatedName = getDeviceName();
 
       const result = await authClient.passkey.addPasskey({
-        name: session?.user.email+" "+generatedName,
+        name: session?.user.email + " " + generatedName,
       });
 
       if (result?.error) {

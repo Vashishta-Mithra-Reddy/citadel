@@ -20,12 +20,14 @@ export default async function PasswordGeneratorPage() {
             title="Access your secure vault"
             href="/dashboard"
             tag="Dashboard"
+            delay={0.6}
           />
         ) : (
           <NavigationCard
             title="Need to save your passwords?"
             href="/sign-in"
             tag="Sign In"
+            delay={0.6}
           />
         )}
       </div>

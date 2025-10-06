@@ -18,7 +18,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="wrapperx flex-col-center text-foreground/90 w-full space-y-12 font-outfit">
-        <DashboardClient />
+      <DashboardClient />
     </main>
   );
 }
