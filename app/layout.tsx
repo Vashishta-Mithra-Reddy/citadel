@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "./providers/AuthProvider";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,10 @@ export default function RootLayout({
 
             <main className="flex flex-col items-center justify-center px-4 md:px-8 pb-4 md:pb-6 pt-4 w-full">
               <div className="w-full max-w-8xl h-[calc(100vh-116px)] rounded-2xl bg-foreground/5 dark:bg-foreground/5 backdrop-blur-md overflow-hidden">
-                <div className="h-full overflow-y-auto">{children}</div>
+                <div className="h-full overflow-y-auto">
+                  {children}
+                  <Analytics />
+                </div>
               </div>
             </main>
 
