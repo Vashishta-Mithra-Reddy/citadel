@@ -8,7 +8,7 @@ export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session) redirect("/sign-in");
-  if (!session.user.salt) redirect("/set-master-password");
+  if (!session.user.salt) redirect("/dashboard/set-master-password");
 
   const encryptedItems = await getEncryptedVaultItems();
 
