@@ -5,7 +5,14 @@ import { useEncryption } from "@/app/providers/EncryptionProvider";
 import { decryptData } from "@/lib/crypto";
 import VaultItemForm, { VaultItemData } from "@/components/vault/VaultItemForm";
 import { toast } from "sonner";
-import { Eye, EyeOff, ExternalLink, Plus, Pencil } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  ExternalLink,
+  Plus,
+  Pencil,
+  CopyIcon,
+} from "lucide-react";
 import { DeleteVaultButton } from "./DeleteVaultItemButton";
 import { motion } from "framer-motion";
 
@@ -95,6 +102,11 @@ export default function Vault({ encryptedItems }: VaultProps) {
 
   const togglePasswordVisibility = (id: string) => {
     setShowPasswords((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleCopyPassword = (password: string) => {
+    navigator.clipboard.writeText(password);
+    toast.success("Password copied to clipboard!");
   };
 
   return (
@@ -197,13 +209,19 @@ export default function Vault({ encryptedItems }: VaultProps) {
                     </span>
                     <button
                       onClick={() => togglePasswordVisibility(item._id!)}
-                      className="p-1 hover:opacity-70"
+                      className="p-1 hover:opacity-70 cursor-pointer"
                     >
                       {showPasswords[item._id!] ? (
                         <EyeOff size={16} />
                       ) : (
                         <Eye size={16} />
                       )}
+                    </button>
+                    <button
+                      onClick={() => handleCopyPassword(item.password!)}
+                      className="p-1 hover:opacity-70 cursor-pointer"
+                    >
+                      <CopyIcon size={16} />
                     </button>
                   </div>
                 )}

@@ -42,7 +42,14 @@ export default function VaultItemForm({
 }: VaultItemFormProps) {
   const { encryptionKey } = useEncryption();
   const [isLoading, setIsLoading] = useState(false);
-  const [showOptional, setShowOptional] = useState(false);
+
+  const hasOptionalFields =
+    !!itemToEdit &&
+    (!!itemToEdit.url ||
+      !!itemToEdit.notes ||
+      (itemToEdit.tags && itemToEdit.tags.length > 0));
+
+  const [showOptional, setShowOptional] = useState(hasOptionalFields);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -142,23 +149,25 @@ export default function VaultItemForm({
             />
           </div>
 
-          {/* Expandable Optional Section */}
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={() => setShowOptional((prev) => !prev)}
-              className="flex items-center gap-1 text-sm text-foreground/70 hover:text-foreground transition-colors duration-300 cursor-pointer"
-            >
-              {showOptional ? (
-                <>
-                  <ChevronUp size={16} /> Hide optional fields
-                </>
-              ) : (
-                <>
-                  <ChevronDown size={16} /> Show optional fields
-                </>
-              )}
-            </button>
+          {/* Optional Fields Section */}
+          <div className={hasOptionalFields ? "mt-0" : "pt-2"}>
+            {!hasOptionalFields && (
+              <button
+                type="button"
+                onClick={() => setShowOptional((prev) => !prev)}
+                className="flex items-center gap-1 text-sm text-foreground/70 hover:text-foreground transition-colors duration-300 cursor-pointer"
+              >
+                {showOptional ? (
+                  <>
+                    <ChevronUp size={16} /> Hide optional fields
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={16} /> Show optional fields
+                  </>
+                )}
+              </button>
+            )}
 
             <AnimatePresence initial={false}>
               {showOptional && (
