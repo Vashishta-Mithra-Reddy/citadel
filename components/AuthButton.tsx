@@ -29,7 +29,7 @@ export default function AuthButton() {
       {session ? (
         <button
           onClick={handleSignOut}
-          className="text-lg font-semibold font-outfit rounded-xl p-3.5 px-5 text-center transition-all duration-300 hover:bg-foreground/5 hover:text-foreground/90 border border-border cursor-pointer"
+          className="text-lg font-semibold font-outfit rounded-xl p-3.5 px-5 text-center transition-all duration-300 hover:bg-foreground/5 hover:text-foreground/90 border border-border cursor-pointer active:scale-95"
         >
           Sign Out
         </button>
@@ -37,7 +37,7 @@ export default function AuthButton() {
         <div className="flex gap-2">
           <Link
             href="/sign-in"
-            className="text-lg font-semibold font-outfit rounded-xl p-3.5 px-5 text-center transition-all duration-300 hover:bg-foreground/5 hover:text-foreground/90 border border-border"
+            className="text-lg font-semibold font-outfit rounded-xl p-3.5 px-5 text-center transition-all duration-300 hover:bg-foreground/5 hover:text-foreground/90 border border-border active:scale-95"
           >
             Sign In
           </Link>

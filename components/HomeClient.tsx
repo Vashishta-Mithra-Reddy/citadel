@@ -49,13 +49,13 @@ export default function HomeClient() {
             >
               <Link
                 href="/sign-up"
-                className="text-lg font-semibold text-white hover:text-white backdrop-blur-xs font-outfit rounded-xl p-3 px-5 text-center transition-all duration-500 hover:bg-foreground/5 border-2 border-white/40 hover:scale-105"
+                className="text-lg font-semibold text-white hover:text-white backdrop-blur-xs font-outfit rounded-xl p-3 px-5 text-center transition-all duration-500 hover:bg-foreground/5 border-2 border-white/40 hover:scale-105 active:scale-100"
               >
                 Sign Up
               </Link>
               <Link
                 href="/sign-in"
-                className="text-lg font-semibold text-white hover:text-white backdrop-blur-xs font-outfit rounded-xl p-3 px-5 text-center transition-all duration-500 hover:bg-foreground/5 border-2 border-white/50 hover:scale-105"
+                className="text-lg font-semibold text-white hover:text-white backdrop-blur-xs font-outfit rounded-xl p-3 px-5 text-center transition-all duration-500 hover:bg-foreground/5 border-2 border-white/50 hover:scale-105 active:scale-100"
               >
                 Sign In
               </Link>
