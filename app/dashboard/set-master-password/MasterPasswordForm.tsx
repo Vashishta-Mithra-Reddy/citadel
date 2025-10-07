@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { setupVault } from "@/actions/vault";
 import { deriveKey, encryptData } from "@/lib/crypto";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const VERIFICATION_PLAINTEXT = "VAULT_VERIFIED";
 
@@ -60,7 +61,13 @@ export default function MasterPasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 flex-col-center">
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      onSubmit={handleSubmit}
+      className="space-y-4 flex-col-center"
+    >
       <div className="flex-col-center w-full">
         <label htmlFor="masterPassword" className="text-lg font-medium">
           Master Password
@@ -101,6 +108,6 @@ export default function MasterPasswordForm() {
       >
         {isLoading ? "Securing Vault..." : "Set Master Password"}
       </button>
-    </form>
+    </motion.form>
   );
 }

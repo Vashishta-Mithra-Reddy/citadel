@@ -141,7 +141,7 @@ export default function PasswordGenerator() {
   return (
     <div className="flex flex-col items-center">
       <motion.div
-        className="w-full md:w-4/6 mb-0"
+        className="w-full max-w-4xl mb-0"
         variants={fadeUp(0.1)}
         initial="hidden"
         animate="visible"
@@ -229,7 +229,7 @@ export default function PasswordGenerator() {
       </motion.div>
 
       <motion.div
-        className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full md:w-4/6 my-4"
+        className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full max-w-4xl my-4"
         variants={fadeUp(0.4)}
         initial="hidden"
         animate="visible"

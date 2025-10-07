@@ -26,7 +26,6 @@ type NavigationCardProps = {
   title: string;
   href: string;
   tag: string;
-  width: string | number;
   image?: string;
   delay: number;
 } & Omit<ComponentProps<typeof Link>, "href">;
@@ -37,7 +36,6 @@ export default function NavigationCard({
   href,
   tag,
   delay,
-  width,
   className,
 }: NavigationCardProps) {
   return (
@@ -45,7 +43,7 @@ export default function NavigationCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut", delay }}
-      className={`w-full md:w-${width}`}
+      className={`w-full flex-center`}
     >
       <Link
         href={href}
