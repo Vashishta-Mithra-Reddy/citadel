@@ -32,20 +32,21 @@ export default function HomeClient() {
           initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-2xl font-medium font-outfit mb-8 text-white text-center"
+          className="text-2xl font-medium font-outfit mb-6 text-white text-center"
         >
           <span className="underline underline-offset-4 decoration-wavy">
             The
           </span>{" "}
           Password Manager
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
+        <div>
           {!session.session ? (
-            <div className="flex gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex gap-4"
+            >
               <Link
                 href="/sign-up"
                 className="text-lg font-semibold text-white hover:text-white backdrop-blur-xs font-outfit rounded-xl p-3 px-5 text-center transition-all duration-500 hover:bg-foreground/5 border-2 border-white/40 hover:scale-105"
@@ -58,16 +59,23 @@ export default function HomeClient() {
               >
                 Sign In
               </Link>
-            </div>
+            </motion.div>
           ) : (
-            <Link
-              href="/dashboard"
-              className="text-lg font-semibold text-white font-outfit rounded-xl p-3 backdrop-blur-xs px-5 text-center transition-all duration-500 hover:bg-foreground/5 hover:text-white border-2 border-white/50 hover:scale-105"
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex"
             >
-              Dashboard
-            </Link>
+              <Link
+                href="/dashboard"
+                className="text-lg font-semibold text-white font-outfit rounded-xl p-3 backdrop-blur-xs px-5 text-center transition-all duration-500 hover:bg-foreground/5 hover:text-white border-2 border-white/50 hover:scale-105"
+              >
+                Dashboard
+              </Link>
+            </motion.div>
           )}
-        </motion.div>
+        </div>
       </section>
 
       {/* <div>
