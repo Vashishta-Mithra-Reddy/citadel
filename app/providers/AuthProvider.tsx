@@ -1,41 +1,25 @@
 "use client";
 
-import { getSession } from "@/actions/auth-actions";
+import { authClient } from "@/lib/auth-client";
 import { SessionData } from "@/types";
 import {
   createContext,
   useContext,
-  useState,
-  useEffect,
-  useCallback,
 } from "react";
 
 const AuthContext = createContext<{
   session: SessionData | null;
-  refreshSession: () => Promise<void>;
+  refreshSession: () => void;
 }>({
   session: null,
-  refreshSession: async () => {},
+  refreshSession: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [session, setSession] = useState<SessionData | null>(null);
-
-  const refreshSession = useCallback(async () => {
-    try {
-      const s = await getSession();
-      setSession(s);
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
-
-  useEffect(() => {
-    refreshSession();
-  }, [refreshSession]);
+  const { data: session, refetch } = authClient.useSession();
 
   return (
-    <AuthContext.Provider value={{ session, refreshSession }}>
+    <AuthContext.Provider value={{ session, refreshSession: refetch }}>
       {children}
     </AuthContext.Provider>
   );
