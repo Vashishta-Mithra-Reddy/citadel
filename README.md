@@ -1,18 +1,17 @@
-# 🏰 Citadel - The Password Manager
+# Citadel - The Password Manager
 
 **Citadel** is a modern, secure password manager built with Next.js 15, featuring client-side encryption, passkey authentication, and a beautiful user interface. Your passwords are encrypted on your device before being stored, ensuring maximum security and privacy.
 
-## ✨ Features
+## Features
 
-- 🔐 **End-to-End Encryption**: All vault items are encrypted client-side using AES-256-GCM encryption
-- 🔑 **Passkey Support**: Modern WebAuthn-based authentication with biometric support (Face ID, Touch ID, Windows Hello)
-- 🎨 **Beautiful UI**: Stunning animations with Framer Motion and Paper Design shaders
-- 🌓 **Dark Mode**: Full dark mode support with seamless theme switching
-- 🔒 **Password Generator**: Generate strong, customizable passwords with real-time strength indicators
-- 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
-- 🗄️ **Vault Management**: Store and organize passwords, notes, URLs, and tags
-- 🔍 **Search & Filter**: Quickly find vault items with search and tag filtering
-- 🚀 **Performance**: Built with Next.js 15 and Turbopack for blazing-fast development
+- **End-to-End Encryption**: All vault items are encrypted client-side using AES-256-GCM encryption
+- **Passkey Support**: Modern WebAuthn-based authentication with biometric support (Face ID, Touch ID, Windows Hello)
+- **Dark Mode**: Full dark mode support with seamless theme switching
+- **Password Generator**: Generate strong, customizable passwords with real-time strength indicators
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Vault Management**: Store and organize passwords, notes, URLs, and tags
+- **Search & Filter**: Quickly find vault items with search and tag filtering
+- **Performance**: Built with Next.js 15
 
 ## 🛠️ Technology Stack
 
@@ -43,7 +42,7 @@
 - **Build Tool**: Turbopack (Next.js 15)
 - **Analytics**: [Vercel Analytics](https://vercel.com/analytics)
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -52,7 +51,7 @@ Before you begin, ensure you have the following installed:
 - **MongoDB**: Local instance or MongoDB Atlas account ([Get started](https://www.mongodb.com/))
 - **Git**: For cloning the repository
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -285,7 +284,7 @@ Context provider for encryption key management.
 - Vault lock/unlock state
 - Secure key storage in memory only (never persisted)
 
-## 🔒 Security Features
+## Security Features
 
 ### Client-Side Encryption
 
@@ -317,7 +316,7 @@ All vault items are encrypted on the client side before being sent to the server
 - Avoids ambiguous characters when selected
 - Real-time strength assessment
 
-## 🧪 Development Workflow
+## Development Workflow
 
 ### Linting
 
@@ -343,7 +342,7 @@ TypeScript is configured with strict mode. Type check with:
 npx tsc --noEmit
 ```
 
-## 🌐 Deployment
+## Deployment
 
 ### Vercel (Recommended)
 
@@ -359,18 +358,7 @@ The easiest way to deploy Citadel is using [Vercel](https://vercel.com):
    - `BETTER_AUTH_URL` (set to your production domain)
 4. Deploy!
 
-### Other Platforms
-
-Citadel can be deployed to any platform that supports Next.js:
-
-- **Netlify**: Use the Next.js runtime
-- **Railway**: Deploy with zero configuration
-- **DigitalOcean App Platform**: Full Next.js support
-- **Docker**: Create a Dockerfile for containerized deployment
-
-**Important for Passkeys**: Ensure your production domain is served over HTTPS for WebAuthn to work properly.
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -380,28 +368,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) - The React Framework
-- [Better Auth](https://www.better-auth.com/) - Authentication library
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [Framer Motion](https://www.framer.com/motion/) - Animation library
-- [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible components
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/Vashishta-Mithra-Reddy/citadel/issues) page
-2. Create a new issue with detailed information
-3. Join our community discussions
-
----
-
-**Built with ❤️ by [Vashishta Mithra Reddy](https://github.com/Vashishta-Mithra-Reddy)**
 
 **Live Demo**: [https://citadel.v19.tech](https://citadel.v19.tech)
