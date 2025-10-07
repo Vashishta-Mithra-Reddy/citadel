@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { toast } from "sonner";
-import { revalidatePath } from "next/cache";
 import { signOut } from "@/actions/auth-actions";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { useRouter } from "next/navigation";
@@ -18,7 +17,6 @@ export default function AuthButton() {
         router.push("/");
         toast.success("Signed out successfully");
         await refreshSession();
-        revalidatePath("/");
       }
     } catch (error) {
       console.error(error);

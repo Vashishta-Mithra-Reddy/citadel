@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/utils/auth";
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export const signUp = async (email: string, password: string, name: string) => {
   const result = await auth.api.signUpEmail({
@@ -11,6 +12,7 @@ export const signUp = async (email: string, password: string, name: string) => {
       callbackURL: "/",
     },
   });
+  revalidatePath("/");
   return result;
 };
 
@@ -22,11 +24,13 @@ export const signIn = async (email: string, password: string) => {
       callbackURL: "/",
     },
   });
+  revalidatePath("/");
   return result;
 };
 
 export const signOut = async () => {
   const result = await auth.api.signOut({ headers: await headers() });
+  revalidatePath("/");
   return result;
 };
 
