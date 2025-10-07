@@ -14,11 +14,31 @@ import {
   CopyIcon,
 } from "lucide-react";
 import { DeleteVaultButton } from "./DeleteVaultItemButton";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface VaultProps {
   encryptedItems: { _id: string; ciphertext: string; iv: string }[];
 }
+
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 0, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 300, damping: 24 },
+  },
+  exit: { y: -20, opacity: 0, transition: { duration: 0.2 } },
+} as const;
 
 export default function Vault({ encryptedItems }: VaultProps) {
   const { encryptionKey } = useEncryption();
@@ -111,13 +131,15 @@ export default function Vault({ encryptedItems }: VaultProps) {
 
   return (
     <>
-      {isFormOpen && (
-        <VaultItemForm
-          itemToEdit={itemToEdit}
-          open={isFormOpen}
-          onClose={() => setIsFormOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {isFormOpen && (
+          <VaultItemForm
+            itemToEdit={itemToEdit}
+            open={isFormOpen}
+            onClose={() => setIsFormOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -125,6 +147,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="p-6 rounded-xl border-2 border-dashed border-foreground/20 w-full font-outfit"
       >
+        {/* ... (Your header, search, and tags JSX remains the same) */}
         <div className="flex flex-row justify-between items-center mb-8 gap-4">
           <h2 className="text-2xl md:text-3xl font-semibold">Your Vault</h2>
           <button
@@ -173,105 +196,119 @@ export default function Vault({ encryptedItems }: VaultProps) {
           </div>
         )}
 
-        {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredItems.map((item) => (
-              <motion.div
-                key={item._id}
-                className="group bg-card p-6 rounded-2xl border border-foreground/10 hover:shadow-sm transition-all duration-300 flex flex-col justify-between"
-              >
-                {/* Header */}
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-                    <p className="text-sm text-foreground/60">
-                      {item.username}
-                    </p>
-                  </div>
+        <AnimatePresence mode="popLayout">
+          {filteredItems.length > 0 ? (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
+              {filteredItems.map((item) => (
+                <motion.div
+                  layout
+                  variants={itemVariants}
+                  key={item._id}
+                  className="group bg-card p-6 rounded-2xl border border-foreground/10 hover:shadow-sm transition-shadow duration-300 flex flex-col justify-between will-change-[transform,opacity]"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-foreground/60">
+                        {item.username}
+                      </p>
+                    </div>
 
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleEdit(item)}
-                      className="p-2 rounded-lg hover:bg-foreground/10 transition cursor-pointer"
-                      title="Edit item"
-                    >
-                      <Pencil size={16} />
-                    </button>
-                    <DeleteVaultButton id={item._id!} />
-                  </div>
-                </div>
-
-                {/* Password */}
-                {item.password && (
-                  <div className="flex items-center gap-2 mt-3">
-                    <span className="font-mono text-sm bg-background px-2 py-1 rounded-md border border-foreground/10 flex-1 truncate">
-                      {showPasswords[item._id!] ? item.password : "••••••••••"}
-                    </span>
-                    <button
-                      onClick={() => togglePasswordVisibility(item._id!)}
-                      className="p-1 hover:opacity-70 cursor-pointer"
-                    >
-                      {showPasswords[item._id!] ? (
-                        <EyeOff size={16} />
-                      ) : (
-                        <Eye size={16} />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleCopyPassword(item.password!)}
-                      className="p-1 hover:opacity-70 cursor-pointer"
-                    >
-                      <CopyIcon size={16} />
-                    </button>
-                  </div>
-                )}
-
-                {/* URL */}
-                {item.url && (
-                  <a
-                    href={
-                      item.url.startsWith("http")
-                        ? item.url
-                        : `https://${item.url}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-sm text-blue-500 hover:underline mt-3"
-                  >
-                    <ExternalLink size={14} /> {item.url}
-                  </a>
-                )}
-
-                {/* Notes */}
-                {item.notes && (
-                  <p className="text-sm text-foreground/70 mt-3 line-clamp-3">
-                    {item.notes}
-                  </p>
-                )}
-
-                {/* Tags */}
-                {item.tags?.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-4">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 text-xs bg-foreground/10 rounded-md"
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="p-2 rounded-lg hover:bg-foreground/10 transition cursor-pointer"
+                        title="Edit item"
                       >
-                        {tag}
-                      </span>
-                    ))}
+                        <Pencil size={16} />
+                      </button>
+                      <DeleteVaultButton id={item._id!} />
+                    </div>
                   </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-foreground/60 py-6">
-            {searchTerm
-              ? "No items match your search."
-              : "Your vault is empty. Add a new item to get started."}
-          </p>
-        )}
+
+                  {item.password && (
+                    <div className="flex items-center gap-2 mt-3">
+                      <span className="font-mono text-sm bg-background px-2 py-1 rounded-md border border-foreground/10 flex-1 truncate">
+                        {showPasswords[item._id!]
+                          ? item.password
+                          : "••••••••••"}
+                      </span>
+                      <button
+                        onClick={() => togglePasswordVisibility(item._id!)}
+                        className="p-1 hover:opacity-70 cursor-pointer"
+                      >
+                        {showPasswords[item._id!] ? (
+                          <EyeOff size={16} />
+                        ) : (
+                          <Eye size={16} />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => handleCopyPassword(item.password!)}
+                        className="p-1 hover:opacity-70 cursor-pointer"
+                      >
+                        <CopyIcon size={16} />
+                      </button>
+                    </div>
+                  )}
+
+                  {item.url && (
+                    <a
+                      href={
+                        item.url.startsWith("http")
+                          ? item.url
+                          : `https://${item.url}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-sm text-blue-500 hover:underline mt-3"
+                    >
+                      <ExternalLink size={14} /> {item.url}
+                    </a>
+                  )}
+
+                  {item.notes && (
+                    <p className="text-sm text-foreground/70 mt-3 line-clamp-3">
+                      {item.notes}
+                    </p>
+                  )}
+
+                  {item.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-4">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 text-xs bg-foreground/10 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.p
+              key="empty-message"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { delay: 0.2 } }}
+              exit={{ opacity: 0 }}
+              className="text-center text-foreground/60 py-6"
+            >
+              {searchTerm
+                ? "No items match your search."
+                : "Your vault is empty. Add a new item to get started."}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </motion.section>
     </>
   );

@@ -44,6 +44,10 @@ export const auth = betterAuth({
     id:
       process.env.NODE_ENV === "development" ? "localhost" : "citadel.v19.tech",
   },
-  trustedOrigins: ["http://localhost:3000", "http://playground:3000", "https://citadel.v19.tech/"],
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://playground:3000",
+    "https://citadel.v19.tech/",
+  ],
   plugins: [passkey(), nextCookies()],
 });

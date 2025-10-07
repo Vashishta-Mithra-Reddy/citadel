@@ -2,10 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { SessionData } from "@/types";
-import {
-  createContext,
-  useContext,
-} from "react";
+import { createContext, useContext } from "react";
 
 const AuthContext = createContext<{
   session: SessionData | null;
