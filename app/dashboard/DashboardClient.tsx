@@ -6,7 +6,13 @@ import UnlockVaultForm from "@/components/vault/UnlockVaultForm";
 import PasskeySetup from "@/components/webauthn/PassKeySetup";
 import Vault from "@/components/vault/Vault";
 
-export default function DashboardClient() {
+interface DashboardClientProps {
+  encryptedItems: { _id: string; ciphertext: string; iv: string }[];
+}
+
+export default function DashboardClient({
+  encryptedItems,
+}: DashboardClientProps) {
   const { isLocked } = useEncryption();
 
   if (isLocked) {
@@ -15,7 +21,7 @@ export default function DashboardClient() {
 
   return (
     <div className="space-y-8 w-full">
-      <Vault />
+      <Vault encryptedItems={encryptedItems} />
 
       <NavigationCard
         href="/password-generator"

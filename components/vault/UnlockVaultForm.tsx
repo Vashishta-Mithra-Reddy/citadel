@@ -35,26 +35,27 @@ export default function UnlockVaultForm() {
       initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="px-20 py-12 rounded-xl bg-background flex-col-center w-fit"
+      className="px-20 py-12 rounded-xl bg-background flex-col-center w-fit font-outfit"
     >
-      <h2 className="text-3xl font-semibold mb-8 text-center">
+      <h2 className="text-3xl font-semibold mb-6 text-center">
         Unlock Your Secure Vault
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 flex-col-center w-full max-w-sm"
+        className="space-y-3 flex-col-center w-full max-w-sm"
       >
         <div className="flex-col-center w-full">
-          <label htmlFor="masterPassword" className="text-lg font-medium">
+          {/* <label htmlFor="masterPassword" className="text-lg font-medium">
             Master Password
-          </label>
+          </label> */}
           <input
             id="masterPassword"
             name="masterPassword"
             type="password"
             value={password}
+            placeholder="Enter Your Master Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-2 p-2 px-4 w-full border border-foreground/20 focus:border-foreground/80 rounded-md outline-none"
+            className="mt-2 py-3 px-5 w-full border border-foreground/20 focus:border-foreground/80 rounded-xl outline-none text-center transition-all duration-300"
             required
             autoFocus
           />
@@ -65,7 +66,7 @@ export default function UnlockVaultForm() {
         <button
           type="submit"
           disabled={isLoading || !password}
-          className="px-5 py-3 mt-2 bg-foreground text-background rounded-md font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="px-5 py-3 mt-2 bg-foreground text-background rounded-xl font-medium hover:bg-foreground/90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full"
         >
           {isLoading ? "Unlocking..." : "Unlock"}
         </button>
