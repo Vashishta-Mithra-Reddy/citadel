@@ -125,7 +125,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="p-6 rounded-xl border-2 border-dashed border-foreground/20 w-full font-outfit"
       >
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+        <div className="flex flex-row justify-between items-center mb-8 gap-4">
           <h2 className="text-3xl font-semibold">Your Vault</h2>
           <button
             onClick={handleAddNew}

@@ -35,9 +35,9 @@ export default function UnlockVaultForm() {
       initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="px-20 py-12 rounded-xl bg-background flex-col-center w-fit font-outfit"
+      className="px-8 md:px-20 py-8 md:py-12 rounded-xl bg-background flex-col-center w-fit font-outfit"
     >
-      <h2 className="text-3xl font-semibold mb-6 text-center">
+      <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
         Unlock Your Secure Vault
       </h2>
       <form
