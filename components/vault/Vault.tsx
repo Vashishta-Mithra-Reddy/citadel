@@ -129,6 +129,11 @@ export default function Vault({ encryptedItems }: VaultProps) {
     toast.success("Password copied to clipboard!");
   };
 
+  const handleCopyUsername = (username: string) => {
+    navigator.clipboard.writeText(username);
+    toast.success("Username copied to clipboard!");
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -147,7 +152,6 @@ export default function Vault({ encryptedItems }: VaultProps) {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="p-6 rounded-xl border-2 border-dashed border-foreground/20 w-full font-outfit"
       >
-        {/* ... (Your header, search, and tags JSX remains the same) */}
         <div className="flex flex-row justify-between items-center mb-8 gap-4">
           <h2 className="text-2xl md:text-3xl font-semibold">Your Vault</h2>
           <button
@@ -209,29 +213,41 @@ export default function Vault({ encryptedItems }: VaultProps) {
                   layout
                   variants={itemVariants}
                   key={item._id}
-                  className="group bg-card p-6 rounded-2xl border border-foreground/10 hover:shadow-sm transition-shadow duration-300 flex flex-col justify-between will-change-[transform,opacity]"
+                  className="group bg-card p-6 rounded-2xl border border-foreground/10 hover:shadow-sm transition-shadow duration-300 flex flex-col justify-start will-change-[transform,opacity]"
                 >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold text-lg mb-1">
+                  <div className="flex justify-between items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-xl mb-1 truncate">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-foreground/60">
-                        {item.username}
-                      </p>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-shrink-0">
+                      <DeleteVaultButton id={item._id!} />
                       <button
                         onClick={() => handleEdit(item)}
-                        className="p-2 rounded-lg hover:bg-foreground/10 transition cursor-pointer"
+                        className="px-3 py-1 bg-blue-500/5 text-blue-500 border border-blue-500/20 rounded-md hover:bg-blue-500/10 transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-between gap-2"
                         title="Edit item"
                       >
+                        Edit
                         <Pencil size={16} />
                       </button>
-                      <DeleteVaultButton id={item._id!} />
                     </div>
                   </div>
+
+                  {item.username && (
+                    <div className="flex items-center gap-2 mt-4">
+                      <span className="font-mono text-sm bg-background px-2 py-1 rounded-md border border-foreground/10 flex-1 truncate">
+                        {item.username}
+                      </span>
+                      <button
+                        onClick={() => handleCopyUsername(item.username!)}
+                        className="p-1 hover:opacity-70 cursor-pointer"
+                      >
+                        <CopyIcon size={18} />
+                      </button>
+                    </div>
+                  )}
 
                   {item.password && (
                     <div className="flex items-center gap-2 mt-3">
@@ -245,16 +261,16 @@ export default function Vault({ encryptedItems }: VaultProps) {
                         className="p-1 hover:opacity-70 cursor-pointer"
                       >
                         {showPasswords[item._id!] ? (
-                          <EyeOff size={16} />
+                          <EyeOff size={18} />
                         ) : (
-                          <Eye size={16} />
+                          <Eye size={18} />
                         )}
                       </button>
                       <button
                         onClick={() => handleCopyPassword(item.password!)}
                         className="p-1 hover:opacity-70 cursor-pointer"
                       >
-                        <CopyIcon size={16} />
+                        <CopyIcon size={18} />
                       </button>
                     </div>
                   )}
@@ -268,14 +284,15 @@ export default function Vault({ encryptedItems }: VaultProps) {
                       }
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-sm text-blue-500 hover:underline mt-3"
+                      className="flex items-center gap-1 text-sm text-blue-500 hover:underline mt-3 overflow-hidden"
                     >
-                      <ExternalLink size={14} /> {item.url}
+                      <ExternalLink size={14} className="flex-shrink-0" />
+                      <span className="truncate">{item.url}</span>
                     </a>
                   )}
 
                   {item.notes && (
-                    <p className="text-sm text-foreground/70 mt-3 line-clamp-3">
+                    <p className="text-sm text-foreground/70 mt-3 line-clamp-2">
                       {item.notes}
                     </p>
                   )}

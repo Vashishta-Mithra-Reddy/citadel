@@ -119,6 +119,7 @@ export default function VaultItemForm({
               name="title"
               placeholder="Website, Application, etc."
               defaultValue={itemToEdit?.title}
+              maxLength={20}
               required
             />
           </div>
