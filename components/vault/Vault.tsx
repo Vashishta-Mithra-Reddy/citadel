@@ -149,7 +149,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
           <div className="mb-6 flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedTag(null)}
-              className={`px-3 py-1 text-sm rounded-lg ${
+              className={`px-3 py-1 text-sm rounded-lg cursor-pointer ${
                 !selectedTag
                   ? "bg-foreground text-background"
                   : "bg-card border border-foreground/20 hover:bg-foreground/10"
@@ -161,7 +161,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
-                className={`px-3 py-1 text-sm rounded-lg ${
+                className={`px-3 py-1 text-sm rounded-lg cursor-pointer ${
                   selectedTag === tag
                     ? "bg-foreground text-background"
                     : "bg-card border border-foreground/20 hover:bg-foreground/10"
@@ -175,7 +175,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
 
         {filteredItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredItems.map((item, index) => (
+            {filteredItems.map((item) => (
               <motion.div
                 key={item._id}
                 className="group bg-card p-6 rounded-2xl border border-foreground/10 hover:shadow-sm transition-all duration-300 flex flex-col justify-between"
@@ -255,7 +255,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 text-xs bg-foreground/10 rounded-md cursor-pointer"
+                        className="px-2 py-0.5 text-xs bg-foreground/10 rounded-md"
                       >
                         {tag}
                       </span>
