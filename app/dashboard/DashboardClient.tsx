@@ -25,7 +25,7 @@ export default function DashboardClient({
 
       <NavigationCard
         href="/password-generator"
-        title="Trying to create a strong password?"
+        title="Generate strong, secure passwords effortlessly"
         tag="Open Password Generator"
         delay={0.2}
       />

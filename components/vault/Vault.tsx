@@ -150,7 +150,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="p-6 rounded-xl border-2 border-dashed border-foreground/20 w-full font-outfit"
+        className="md:px-0 px-2 rounded-xl w-full font-outfit"
       >
         <div className="flex flex-row justify-between items-center mb-8 gap-4">
           <h2 className="text-2xl md:text-3xl font-semibold">Your Vault</h2>
