@@ -126,7 +126,7 @@ export default function Vault({ encryptedItems }: VaultProps) {
         className="p-6 rounded-xl border-2 border-dashed border-foreground/20 w-full font-outfit"
       >
         <div className="flex flex-row justify-between items-center mb-8 gap-4">
-          <h2 className="text-3xl font-semibold">Your Vault</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold">Your Vault</h2>
           <button
             onClick={handleAddNew}
             className="flex items-center gap-2 px-4 py-2.5 bg-foreground text-background/90 rounded-xl hover:opacity-90 transition-all cursor-pointer font-medium"
