@@ -20,7 +20,7 @@ export default function DashboardClient({
   }
 
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-8 w-full wrapperx text-foreground/90">
       <Vault encryptedItems={encryptedItems} />
 
       <NavigationCard

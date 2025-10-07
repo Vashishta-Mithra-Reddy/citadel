@@ -12,9 +12,5 @@ export default async function DashboardPage() {
 
   const encryptedItems = await getEncryptedVaultItems();
 
-  return (
-    <main className="wrapperx flex flex-col items-center justify-center text-foreground/90">
-      <DashboardClient encryptedItems={encryptedItems} />
-    </main>
-  );
+  return <DashboardClient encryptedItems={encryptedItems} />;
 }
