@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "./providers/AuthProvider";
 import { Analytics } from "@vercel/analytics/next";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Citadel | The Password Manager",
   description: "Your personal vault on the web.",
+  manifest: "/manifest.webmanifest",
+  applicationName: "Citadel",
 };
 
 export default function RootLayout({
@@ -39,6 +42,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <Header />
+            <ServiceWorkerRegister />
 
             <main className="flex flex-col items-center justify-center px-4 md:px-8 pb-4 md:pb-6 pt-4 w-full">
               <div className="w-full max-w-8xl h-[calc(100vh-116px)] rounded-2xl bg-foreground/5 dark:bg-foreground/5 backdrop-blur-md overflow-hidden">
