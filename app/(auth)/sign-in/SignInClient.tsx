@@ -8,6 +8,7 @@ import { signIn } from "@/actions/auth-actions";
 import { useAuth } from "@/app/providers/AuthProvider";
 import PasskeyLoginButton from "@/components/webauthn/PassKeyLogin";
 import { authClient } from "@/lib/auth-client";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 
 export default function SignInClient() {
   const [email, setEmail] = useState("");
@@ -147,12 +148,13 @@ export default function SignInClient() {
           </div>
           {/* {"PublicKeyCredential" in window && (
             <> */}
-          <div className="relative flex py-5 items-center w-full">
+          <div className="relative flex py-3 items-center w-full">
             <div className="flex-grow border-t border-gray-400"></div>
             <span className="flex-shrink mx-4 text-gray-400">OR</span>
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
-          <div className="flex items-center justify-center w-full h-full">
+          <div className="flex flex-col items-center justify-center w-full h-full">
+            <GoogleAuthButton />
             <PasskeyLoginButton />
           </div>
           {/* </>
