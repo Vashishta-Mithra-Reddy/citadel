@@ -75,23 +75,22 @@ export default function GoogleAuthButton() {
         provider: "google",
         callbackURL: "/dashboard",
         fetchOptions: {
-          onSuccess: async (context) => {
-            try {
-              await refreshSession();
-              toast.success("Successfully signed in with Google!", {
-                description: "Redirecting to your dashboard...",
-              });
+        //   onSuccess: async (context) => {
+        //     try {
+        //       await refreshSession();
+        //       toast.success("Successfully signed in with Google!", {
+        //         description: "Redirecting to your dashboard...",
+        //       });
               
-              // Small delay to show success message
-              setTimeout(() => {
-                router.push("/dashboard");
-              }, 1000);
-            } catch (error) {
-              console.error("Session refresh error:", error);
-              toast.error("Sign-in successful, but failed to refresh session. Please try again.");
-              setIsLoading(false);
-            }
-          },
+        //       setTimeout(() => {
+        //         router.push("/dashboard");
+        //       }, 1000);
+        //     } catch (error) {
+        //       console.error("Session refresh error:", error);
+        //       toast.error("Sign-in successful, but failed to refresh session. Please try again.");
+        //       setIsLoading(false);
+        //     }
+        //   },
           onError: (context) => {
             const errorMessage = context.error?.message || "Failed to sign in with Google";
             
