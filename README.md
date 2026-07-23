@@ -56,7 +56,7 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Vashishta-Mithra-Reddy/citadel.git
+git clone https://github.com/vxshta/citadel.git
 cd citadel
 ```
 
@@ -348,7 +348,7 @@ npx tsc --noEmit
 
 The easiest way to deploy Citadel is using [Vercel](https://vercel.com):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Vashishta-Mithra-Reddy/citadel)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vxshta/citadel)
 
 1. Push your code to GitHub
 2. Import your repository in Vercel
